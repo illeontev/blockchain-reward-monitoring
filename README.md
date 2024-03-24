@@ -1,4 +1,4 @@
-# BlockchainRewardMonitoring
+# Blockchain Reward Monitoring
 
 ## Description
 BlockchainRewardMonitoring is a Telegram bot designed to monitor the distribution of rewards based on data from the 
