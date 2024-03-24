@@ -1,4 +1,3 @@
-import asyncio
 import logging
 from datetime import datetime, timedelta
 from typing import NoReturn
@@ -59,7 +58,7 @@ class TelegramBot:
         await context.bot.send_message(chat_id=self._report_reciever_chat_id, text=report_content)
 
     def _add_handlers(self) -> None:
-        start_handler = CommandHandler('start', self._start)
+        start_handler = CommandHandler("start", self._start)
         self._application.add_handler(start_handler)
 
     async def _start(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -67,8 +66,8 @@ class TelegramBot:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"Hello! Thank you for launching!\n "
-                 f"Since that moment I'm going to send a total distributions report to the chat "
-                 f"with id {self._report_reciever_chat_id} every {self._report_send_interval_sec} seconds."
+            f"Since that moment I'm going to send a total distributions report to the chat "
+            f"with id {self._report_reciever_chat_id} every {self._report_send_interval_sec} seconds.",
         )
 
     async def _get_report_content(self) -> str:

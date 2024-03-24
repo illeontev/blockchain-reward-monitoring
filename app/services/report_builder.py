@@ -39,7 +39,7 @@ class ReportBuilder:
 
     @staticmethod
     def _convert_base_units_to_tokens(unit_value: int, decimals: int = 18) -> float:
-        return round(Decimal(unit_value) / (10 ** decimals), 2)
+        return round(Decimal(unit_value) / (10**decimals), 2)
 
     @staticmethod
     def _get_time_ago_string(event_time: datetime) -> str:

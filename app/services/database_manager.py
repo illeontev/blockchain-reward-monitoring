@@ -14,11 +14,15 @@ class DatabaseManager:
     @staticmethod
     def get_last_distribution_event() -> DistributionEvent:
         with Session() as session:
-            last_event = session.query(DistributionEvent).order_by(
-                DistributionEvent.block_number.desc(),
-                DistributionEvent.transaction_index.desc(),
-                DistributionEvent.log_index.desc()
-            ).first()
+            last_event = (
+                session.query(DistributionEvent)
+                .order_by(
+                    DistributionEvent.block_number.desc(),
+                    DistributionEvent.transaction_index.desc(),
+                    DistributionEvent.log_index.desc(),
+                )
+                .first()
+            )
             return last_event
 
     @staticmethod
@@ -34,14 +38,16 @@ class DatabaseManager:
     @staticmethod
     def get_total_distributions(start_date: datetime, end_date: datetime) -> dict:
         with Session() as session:
-            aggregation = session.query(
-                func.sum(DistributionEvent.distributed_aix_amount).label("total_distributed_aix"),
-                func.sum(DistributionEvent.distributed_eth_amount).label("total_distributed_eth"),
-                func.sum(DistributionEvent.input_aix_amount).label("total_input_aix"),
-                func.sum(DistributionEvent.swapped_eth_amount).label("total_swapped_eth"),
-            ).filter(
-                DistributionEvent.occurred_at.between(start_date, end_date)
-            ).one()
+            aggregation = (
+                session.query(
+                    func.sum(DistributionEvent.distributed_aix_amount).label("total_distributed_aix"),
+                    func.sum(DistributionEvent.distributed_eth_amount).label("total_distributed_eth"),
+                    func.sum(DistributionEvent.input_aix_amount).label("total_input_aix"),
+                    func.sum(DistributionEvent.swapped_eth_amount).label("total_swapped_eth"),
+                )
+                .filter(DistributionEvent.occurred_at.between(start_date, end_date))
+                .one()
+            )
 
             total_distributions = {
                 "total_distributed_aix": aggregation.total_distributed_aix,
@@ -58,13 +64,17 @@ class DatabaseManager:
             query = session.query(DistributionEvent.occurred_at)
 
             if direction == NearestDateDirection.AFTER:
-                event = query.filter(
-                    DistributionEvent.occurred_at >= target_date
-                ).order_by(DistributionEvent.occurred_at.asc()).first()
+                event = (
+                    query.filter(DistributionEvent.occurred_at >= target_date)
+                    .order_by(DistributionEvent.occurred_at.asc())
+                    .first()
+                )
             elif direction == NearestDateDirection.BEFORE:
-                event = query.filter(
-                    DistributionEvent.occurred_at <= target_date
-                ).order_by(DistributionEvent.occurred_at.desc()).first()
+                event = (
+                    query.filter(DistributionEvent.occurred_at <= target_date)
+                    .order_by(DistributionEvent.occurred_at.desc())
+                    .first()
+                )
             else:
                 raise ValueError("Invalid direction")
 

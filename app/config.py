@@ -6,7 +6,7 @@ from environs import Env
 env = Env()
 env.read_env()
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 class Config:
@@ -30,6 +30,6 @@ class Config:
     DB_PORT = env.str("DB_PORT")
     DB_NAME = env.str("DB_NAME")
 
-    SQLALCHEMY_DATABASE_URI = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     REPORT_RECIEVER_CHAT_ID = env.str("REPORT_RECIEVER_CHAT_ID")

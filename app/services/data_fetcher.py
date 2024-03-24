@@ -25,7 +25,7 @@ class DataFetcher:
 
     def fetch_distribution_events(self, from_block: int) -> list[DistributionEvent]:
         events_dicts = self._contract.events.TotalDistribution.create_filter(
-            fromBlock=from_block, toBlock='latest'
+            fromBlock=from_block, toBlock="latest"
         ).get_all_entries()
 
         distributions_events: list[DistributionEvent] = []

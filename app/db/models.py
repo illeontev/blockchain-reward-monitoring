@@ -4,7 +4,7 @@ from app.db.database import Base
 
 
 class DistributionEvent(Base):
-    __tablename__ = 'distribution_events'
+    __tablename__ = "distribution_events"
 
     id = Column(Integer, primary_key=True)
     block_number = Column(BigInteger, nullable=False)
