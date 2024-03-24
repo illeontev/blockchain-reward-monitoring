@@ -1,0 +1,6 @@
+APScheduler
+environs
+psycopg2-binary
+python-telegram-bot
+sqlalchemy
+web3
